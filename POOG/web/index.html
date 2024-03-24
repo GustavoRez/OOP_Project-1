@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>MeServLet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    
+    <body>
+        <div id="app"> 
+            <h1>Insert your school subjects.</h1>
+            <input type = "text" v-model ="newSubject"/>
+            <button @click="add()">+</button>
+            <button @click="remove(1)">REMOVER</button>            
+            <ul>
+                <li v-for= "x in subjects">
+                    {{ x }}
+                    <!--<button @click="remove(subjects.indexOf(item))">-</button>-->                
+                </li>
+            </ul>
+        </div>
+        
+        <script>
+            const {createApp} = Vue;
+            
+            createApp({
+                data(){
+                    return{
+                        subjects: [],
+                        newSubject: ''
+                    };
+                },
+                async created(){
+                    await this.fetchData();
+                },
+                methods:{
+                    async fetchData(newText, indexToRemove){
+                        var url = "Gustavo.json";
+                        if(newText) url = url + '?add&text=' + newText;
+                        if(indexToRemove >= 0)url = url + '?remove&i=' + indexToRemove;
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        this.subjects = data.list;
+                    },
+                    add(){
+                        this.fetchData(this.newSubject);
+                        this.newSubject = '';
+                    },
+                    remove(i){
+                        this.fetchData(null, i);
+                    }   
+                }
+            }).mount('#app');
+        </script>
+            
+        <!--<h3><a href ="Gustavo.json">Student data and subjects.</a></h3>-->
+        <!--<h3><a href ="lottery.json">LOTTERY!</a></h3>-->
+    </body>
+</html>
