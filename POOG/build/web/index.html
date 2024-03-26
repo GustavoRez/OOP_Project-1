@@ -15,7 +15,7 @@
             <ul>
                 <li v-for= "x in subjects">
                     {{ x }}
-                    <!--<button @click="remove(subjects.indexOf(item))">-</button>-->                
+                    <button @click="remove(subjects.indexOf(item))">-</button>        
                 </li>
             </ul>
         </div>
@@ -40,7 +40,7 @@
                         if(indexToRemove >= 0)url = url + '?remove&i=' + indexToRemove;
                         const response = await fetch(url);
                         const data = await response.json();
-                        this.subjects = data.list;
+                        this.subjects = data.Subjects;
                     },
                     add(){
                         this.fetchData(this.newSubject);
