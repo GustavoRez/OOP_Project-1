@@ -1,0 +1,2 @@
+<%@ page pageEncoding="UTF-8" %>
+<p><a href="index.jsp">Menu</a> &nbsp <a href="juros-simples.jsp">Juros Simples</a> &nbsp <a href="juros-composto.jsp">Juros Composto</a><p>
