@@ -8,7 +8,7 @@
     <body>
         <%@include file="WEB-INF/JSPF/menu.jspf"%>
 
-        <h1>Juros Simples:</h1>
+        <h1>Juros Simples Mensal:</h1>
         
         <form action="" method="get">
             <input type="number" step="0.01" name="capIni" placeholder="Capital Inicial:"/>
@@ -27,11 +27,12 @@
                 jur = Double.valueOf(request.getParameter("juros"));
                 apli = Integer.valueOf(request.getParameter("tempoAplic"));
                 
-                double jurSimp = cap + cap * (jur/100) * apli;
+                double jurSimp = cap + cap * (jur/100) * (apli / 12);
                 
-                out.println("Taxa de juros = %" + jur);%><br><br><%
+                out.println("Taxa de juros = " + String.format("%.0f", jur) + "%");%><br><br><%
                 out.println("Tempo de aplicação = " + apli + " meses");%><br><br><%
-                out.println(String.format("Lucro obtido: R$ %.2f ", (jurSimp-cap)));%><br><br><% 
+                    
+                out.println(String.format("Lucro obtido: R$ %.2f ", (jurSimp - cap)));%><br><br><% 
                 out.println(String.format("Valor total: R$ %.2f", jurSimp)); 
                 
                 } catch(NullPointerException e){
