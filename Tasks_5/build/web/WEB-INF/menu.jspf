@@ -1,0 +1,3 @@
+<%@ page pageEncoding="UTF-8" %>
+<style>a{color: darkred}</style>
+<p><a href="index.jsp">Menu</a> &nbsp <a href="numero-primo.jsp">Prime Numbers</a> &nbsp <a href="fibonacci.jsp">Fibonacci Sequence</a>&nbsp <a href="soma.jsp">Sum</a><p>
