@@ -7,32 +7,53 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 @WebServlet(urlPatterns = {"/gustavo.json"})
+
 public class gustavo extends HttpServlet {
 
-        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    private ArrayList<String> list = new ArrayList<>();
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");  
+
+        if (list.isEmpty()) {
+            list.clear();
+            list.add("Operating System II");
+            list.add("OOP");
+            list.add("DB");
+            list.add("Software Engineering III");
+            list.add("Projects Management");
+        }
+        
+        if (request.getParameter("add") != null) {
+            String text = request.getParameter("text");
+            list.add(text);
+        }
+        if (request.getParameter("remove") != null) {
+            int i = Integer.parseInt(request.getParameter("i"));
+            list.remove(i);
+        }
+
         try (PrintWriter out = response.getWriter()) {
-            
-            out.println("<title> Student Data </title>");
-            out.println("<h2>ID: 1290482222036</h2>");            
-            out.println("<h2>Name: Gustavo de Rezende Garcia</h2>");
-            
-            
-            String mat[] = {"Operating System II", "OOP", "DB", "Software Engineering III", "Projects Management"};                   
-            out.println("<br>");
-            out.println("<h2>Subjects studied</h2>");
-            
-            
-            
-                for(int i = 0; i < mat.length; i++){               
-                out.println("<ul>");
-                out.println("<li>" + mat[i]);
-                out.println("</ul>");
-            
-           }
+
+            JSONObject obj = new JSONObject();
+            JSONArray arr = new JSONArray();
+            for (String e : list) {
+                arr.put(e);
+            }
+            out.println("<title>Student Data</title>");
+            out.println("ID: 1290482222036<br>");
+            out.println("Name: Gustavo de Rezende Garcia");
+            out.println("<p>");
+            obj.put("Subjects", arr);
+            out.println(obj.toString());
+            out.println("</p>");
+
         }
     }
 
